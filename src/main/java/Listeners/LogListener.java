@@ -12,7 +12,7 @@ public class LogListener implements ServletRequestListener {
     public void requestInitialized(ServletRequestEvent servletRequestEvent) {
         ServletRequest req = servletRequestEvent.getServletRequest();
         String log = "Protocol: " + req.getProtocol()+ "\nContent-type: " + req.getContentType() + "\nServer name: "
-                + req.getServerName() + "\nPort: " + req.getServerPort();
+                + req.getServerName() + "\nPort: " + req.getServerPort() + "\nEmail: " + req.getParameter("email") + "\nPassword: " + req.getParameter("password");
         System.out.println(log);
     }
 
