@@ -20,12 +20,11 @@ public class SetLongSessionFilter implements Filter{
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
 
-//        HttpServletResponse res = (HttpServletResponse) response;
         HttpServletRequest req = (HttpServletRequest) request;
         HttpSession session = req.getSession(false);
         if(session!=null){
             session.setMaxInactiveInterval(30);
-            System.out.println("SetLongSessionFilter: session has 60 sec inactive time now.");
+            System.out.println("SetLongSessionFilter: session has 30 sec inactive time now.");
         } else {
             System.out.println("SetLongSessionFilter: there is not any session!");
         }

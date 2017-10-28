@@ -18,26 +18,6 @@
         <servlet-class>LoginServlet</servlet-class>
     </servlet>
 
-    <!--<servlet>-->
-        <!--<servlet-name>ExceptionServlet</servlet-name>-->
-        <!--<servlet-class>Exceptions.ExceptionServlet</servlet-class>-->
-    <!--</servlet>-->
-
-    <!--<servlet>-->
-        <!--<servlet-name>ErrorServlet</servlet-name>-->
-        <!--<servlet-class>Exceptions.ErrorServlet</servlet-class>-->
-    <!--</servlet>-->
-
-    <!--<servlet-mapping>-->
-        <!--<servlet-name>ErrorServlet</servlet-name>-->
-        <!--<url-pattern>/error</url-pattern>-->
-    <!--</servlet-mapping>-->
-
-    <!--<servlet-mapping>-->
-        <!--<servlet-name>ExceptionServlet</servlet-name>-->
-        <!--<url-pattern>/exception</url-pattern>-->
-    <!--</servlet-mapping>-->
-
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -64,7 +44,7 @@
         <filter-name>LogFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-    
+
     <filter>
         <filter-name>SessionFilter</filter-name>
         <filter-class>filters.SessionFilter</filter-class>
