@@ -38,7 +38,7 @@ public class LogFilter implements Filter {
             time=0;
         }
 
-        System.out.println(method + " | " + url + " | " + servletPath + " | " + new Date() + " | Cookies: " + ck + "Time of cookie: " + time + " sec." );
+        System.out.println(method + " | " + url + " | " + servletPath + " | " + new Date() + " | Cookies: " + ck + " Time of cookie: " + time + " sec." );
         chain.doFilter(request, response);
     }
 
