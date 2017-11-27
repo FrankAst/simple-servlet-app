@@ -5,18 +5,48 @@
          version="3.1">
     <servlet>
         <servlet-name>RegistartionServlet</servlet-name>
-        <servlet-class>RegistartionServlet</servlet-class>
+        <servlet-class>controllers.StudentRegistration</servlet-class>
     </servlet>
 
     <servlet>
         <servlet-name>Welcome</servlet-name>
-        <servlet-class>Welcome</servlet-class>
+        <servlet-class>controllers.Welcome</servlet-class>
     </servlet>
 
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
-        <servlet-class>LoginServlet</servlet-class>
+        <servlet-class>controllers.StudentLogin</servlet-class>
     </servlet>
+
+    <servlet>
+        <servlet-name>LibrarianLogin</servlet-name>
+        <servlet-class>controllers.LibrarianLogin</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>LibrarianRegistration</servlet-name>
+        <servlet-class>controllers.LibrarianRegistration</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>Book</servlet-name>
+        <servlet-class>controllers.Book</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Book</servlet-name>
+        <url-pattern>/book</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>LibrarianRegistration</servlet-name>
+        <url-pattern>/libsignup</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>LibrarianLogin</servlet-name>
+        <url-pattern>/liblogin</url-pattern>
+    </servlet-mapping>
 
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -67,7 +97,6 @@
 
     <error-page>
         <error-code>404</error-code>
-
         <location>/ErrorServlet</location>
     </error-page>
 
