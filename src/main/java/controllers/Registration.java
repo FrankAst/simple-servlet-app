@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class StudentRegistration extends HttpServlet {
+public class Registration extends HttpServlet {
 
 
     @Override
@@ -19,7 +19,7 @@ public class StudentRegistration extends HttpServlet {
 
         ServletContext ctx = req.getServletContext();
         DBConnection sq = (DBConnection) ctx.getAttribute("DBConnection");
-        List<Map> allUsers = sq.selectAllStudents();
+        List<Map> allUsers = sq.selectAllUsers();
         Boolean isExist = false;
 
         for (int i = 0; i < allUsers.size(); i++) {
@@ -27,17 +27,13 @@ public class StudentRegistration extends HttpServlet {
                 isExist = true;
             }
         }
-
         if(!isExist){
-            String query = "insert into users (email, password) VALUES (? , ?)";
-            sq.insert(req.getParameter("email"), req.getParameter("password"), query);
+            String query = "insert into users (email, password, role) VALUES (?, ?, ?)";
+            sq.insertUser(req.getParameter("email"), req.getParameter("password"), query);
             res.getWriter().println(req.getParameter("email"));
         } else {
             res.getWriter().println("Sorry, user with this email already exists, try again!");
-
         }
-
-
     }
 
     @Override

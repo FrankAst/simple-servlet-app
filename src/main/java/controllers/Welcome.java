@@ -13,12 +13,10 @@ public class Welcome extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         if(session==null){
-            System.out.println("nope");
-                request.getRequestDispatcher("student.html").forward(request, response);
+                request.getRequestDispatcher("login.html").forward(request, response);
         }
         else{
-            System.out.println("yep");
-            if(session.getAttribute("role").equals("student")){
+            if(session.getAttribute("role").equals("user")){
                 request.getRequestDispatcher("profile.jsp").forward(request, response);
             } else if(session.getAttribute("role").equals("librarian")) {
                 request.getRequestDispatcher("manage.jsp").forward(request, response);

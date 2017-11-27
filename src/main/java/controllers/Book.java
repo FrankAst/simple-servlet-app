@@ -29,20 +29,18 @@ public class Book extends HttpServlet {
 
         if(!isExist){
             String query = "insert into books (title, author) VALUES (? , ?)";
-            sq.insert(req.getParameter("title"), req.getParameter("author"),query);
+            sq.insertBook(req.getParameter("title"), req.getParameter("author"),query);
             HttpSession session = req.getSession(false);
             if(session==null){
                 res.getWriter().println("Please, login firstly!");
             }
             else{
-                if(session.getAttribute("role").equals("student")){
+                if(session.getAttribute("role").equals("user")){
                     req.getRequestDispatcher("profile.jsp").forward(req, res);
                 } else if(session.getAttribute("role").equals("librarian")) {
                     req.getRequestDispatcher("manage.jsp").forward(req, res);
                 }
             }
-
-
         } else {
             res.getWriter().println("Sorry, this book already exist!");
         }
@@ -61,16 +59,11 @@ public class Book extends HttpServlet {
             response.getWriter().println("Please, login firstly!");
         }
         else{
-            if(session.getAttribute("role").equals("student")){
+            if(session.getAttribute("role").equals("user")){
                 request.getRequestDispatcher("profile.jsp").forward(request, response);
             } else if(session.getAttribute("role").equals("librarian")) {
                 request.getRequestDispatcher("manage.jsp").forward(request, response);
             }
         }
     }
-
-
-
-
-
 }

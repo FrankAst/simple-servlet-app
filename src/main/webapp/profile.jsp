@@ -13,10 +13,25 @@
             <div class="info" style="text-align: center;"><h3>You are in system</h3></div>
 			<h3>Hey, student!</h3>
 			<button><a href="/book">Get all books!</a></button>
+			<button><a href="/forum">Chat</a></button>
+			<button><a href="/reserve">Reserved books</a></button>
 
 			<div class="newBooks">
 				<ul>
 					<c:forEach items="${books}" var="item">
+						<li>Title: ${item.get("title")} | Author: ${item.get("author")}</li>
+						<form action="/reserve" method="post">
+							<input type="hidden" name="title" value="${item.get("title")}" />
+							<input type="hidden" name="author" value="${item.get("author")}" />
+							<input type="submit"  value="Reserve book"/>
+						</form>
+						<hr>
+					</c:forEach>
+				</ul>
+			</div>
+			<div class="reservedBooks">
+				<ul>
+					<c:forEach items="${reservedBooks}" var="item">
 						<li>Title: ${item.get("title")} | Author: ${item.get("author")}</li>
 					</c:forEach>
 				</ul>

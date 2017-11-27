@@ -22,11 +22,21 @@
 			</form>
 
 			<button><a href="/book">Get all books!</a></button>
+			<button><a href="/forum">Chat</a></button>
+			<button><a href="/reserve">Reserved books</a></button>
 
 			<div class="newBooks">
 				<ul>
 					<c:forEach items="${books}" var="item">
 						<li>Title: ${item.get("title")} | Author: ${item.get("author")}</li>
+					</c:forEach>
+				</ul>
+			</div>
+
+			<div class="reservedBooks">
+				<ul>
+					<c:forEach items="${reservedBooks}" var="item">
+						<li>Title: ${item.get("title")} | Author: ${item.get("author")} ===> Reserved by: ${item.get("email")}</li>
 					</c:forEach>
 				</ul>
 			</div>

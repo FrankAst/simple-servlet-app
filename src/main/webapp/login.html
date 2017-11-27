@@ -18,7 +18,7 @@
 
 			$.ajax({
 		  method: "POST",
-		  url: '/libsignup',
+		  url: '/signup',
 		  data: {
 				email: email,
 				password: password
@@ -45,7 +45,7 @@
         var password = $( "input[name=password]" ).val();
             $.ajax({
           method: "POST",
-          url: '/liblogin',
+          url: '/login',
           data: {
                 email: email,
                 password: password
@@ -62,11 +62,10 @@
 </head>
 <body>
 	    <div class="container">
-            <h2>Are you a student? Please login <a href="/login">here.</a></h2>
         <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
             <div class="panel panel-info" >
                     <div class="panel-heading">
-                        <div class="panel-title">Sign In, (for librarian)</div>
+                        <div class="panel-title">Sign In</div>
                         <div style="float:right; font-size: 80%; position: relative; top:-10px"><a href="#">Forgot password?</a></div>
                     </div>
 
