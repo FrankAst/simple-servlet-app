@@ -1,7 +1,13 @@
 package db;
 
+import org.joda.time.DateTime;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import javax.print.DocFlavor;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,18 +50,6 @@ import java.util.Map;
         }
     }
 
-        public void insertBook(String title, String author, String query){
-            try {
-                PreparedStatement stmt = conn.prepareStatement(query);
-                stmt.setString(1, title);
-                stmt.setString(2, author);
-                stmt.executeUpdate();
-                conn.commit();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-
     public List<Map> selectAllUsers() {
         String query = "select * from users";
         PreparedStatement stmt = null;
@@ -76,103 +70,35 @@ import java.util.Map;
         return data;
     }
 
-        public List<Map> selectAllBooks() {
-            String query = "select * from books";
-            PreparedStatement stmt = null;
-            List<Map> data = new ArrayList<Map>();
-            try {
-                stmt = conn.prepareStatement(query);
-                ResultSet rs = stmt.executeQuery();
-               data = new ArrayList<Map>();
-                while (rs.next()) {
-                    Map<String, String> result = new HashMap<String, String>();
-                    result.put("title", rs.getString("title"));
-                    result.put("author", rs.getString("author"));
-                    data.add(result);
-                }
 
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            System.out.println(data);
-            return data;
-        }
-
-        public List<Map> selectAllReservedBooks(String query) {
-            PreparedStatement stmt = null;
-            List<Map> data = new ArrayList<Map>();
-            try {
-                stmt = conn.prepareStatement(query);
-                ResultSet rs = stmt.executeQuery();
-                data = new ArrayList<Map>();
-                while (rs.next()) {
-                    Map<String, String> result = new HashMap<String, String>();
-                    result.put("title", rs.getString("title"));
-                    result.put("author", rs.getString("author"));
-                    result.put("email", rs.getString("email"));
-                    System.out.println(result);
-                    data.add(result);
-                }
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            System.out.println(data);
-            return data;
-        }
-
-        public void updateBook(String query) {
-            PreparedStatement stmt = null;
-            try {
-                stmt = conn.prepareStatement(query);
-                stmt.executeUpdate();
-                conn.commit();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-
-        public Map findOne(String query) {
+        public JSONObject findOne(String query) {
         PreparedStatement stmt = null;
-        Map<String, String> result = new HashMap<String, String>();
+        JSONObject user = new JSONObject();
         try {
             stmt = conn.prepareStatement(query);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                result.put("email", rs.getString("email"));
-                result.put("password", rs.getString("password"));
-                result.put("role", rs.getString("role"));
+                user.put("email", rs.getString("email"));
+                user.put("password", rs.getString("password"));
+                user.put("id", Integer.toString(rs.getInt("id")));
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return result;
+        return user;
     }
 
-        public int getUserID(String query) {
-            PreparedStatement stmt = null;
-            int id=0;
+        public void insertNote(String title, String content, String date, String color, int user_id){
+        String query = "insert into notes (title, content, date, user_id, color) values (?, ?, ?, ?, ?)";
             try {
-                stmt = conn.prepareStatement(query);
-                ResultSet rs = stmt.executeQuery();
-                while (rs.next()) {
-                    id = rs.getInt("id");
-                }
 
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            return id;
-        }
-
-        public void insertComment(String query, String body, int user_id){
-            try {
-                Timestamp created_at = new Timestamp(System.currentTimeMillis());
                 PreparedStatement stmt = conn.prepareStatement(query);
-                stmt.setInt(1, user_id);
-                stmt.setTimestamp(2, created_at);
-                stmt.setString(3, body);
+                stmt.setString(1, title);
+                stmt.setString(2, content);
+                stmt.setString(3, date);
+                stmt.setInt(4, user_id);
+                stmt.setString(5, color);
                 stmt.executeUpdate();
                 conn.commit();
             } catch (SQLException e) {
@@ -180,28 +106,42 @@ import java.util.Map;
             }
         }
 
-        public List<Map> selectAllComments() {
-            String query = "select * from comments join users on comments.user_id = users.id";
+        public JSONArray selectAllNotes(int id) {
+            String query = "select * from notes join users on notes.user_id = users.id where users.id = ?";
             PreparedStatement stmt = null;
-            List<Map> data = new ArrayList<Map>();
+            JSONArray allNotes = new JSONArray();
             try {
                 stmt = conn.prepareStatement(query);
+                stmt.setInt(1,id);
                 ResultSet rs = stmt.executeQuery();
                 while (rs.next()) {
-                    Map<String, Object> result = new HashMap<String, Object>();
-                    result.put("body", rs.getString("body"));
-                    result.put("created_at", rs.getDate("created_at"));
-                    result.put("email", rs.getString("email"));
-                    data.add(result);
+                    JSONObject note = new JSONObject();
+                    note.put("title", rs.getString("title"));
+                    note.put("content", rs.getString("content"));
+                    note.put("date", rs.getString("date"));
+                    note.put("color", rs.getString("color"));
+                    note.put("id", Integer.toString(rs.getInt("id")));
+                    allNotes.put(note);
                 }
 
             } catch (SQLException e) {
                 e.printStackTrace();
             }
 
-            return data;
+            return allNotes;
         }
 
+        public void deleteNote(int id){
+            String query = "delete from notes where id = ?";
+            try {
+                PreparedStatement stmt = conn.prepareStatement(query);
+                stmt.setInt(1, id);
+                stmt.executeUpdate();
+                conn.commit();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
 
     public Boolean close() throws SQLException{
         this.conn.close();

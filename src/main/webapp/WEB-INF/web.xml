@@ -19,33 +19,25 @@
     </servlet>
 
     <servlet>
-        <servlet-name>Book</servlet-name>
-        <servlet-class>controllers.Book</servlet-class>
+        <servlet-name>Create</servlet-name>
+        <servlet-class>controllers.Create</servlet-class>
     </servlet>
 
     <servlet>
-        <servlet-name>Reserve</servlet-name>
-        <servlet-class>controllers.Reserve</servlet-class>
+        <servlet-name>Delete</servlet-name>
+        <servlet-class>controllers.Delete</servlet-class>
     </servlet>
 
-    <servlet>
-        <servlet-name>Forum</servlet-name>
-        <servlet-class>controllers.Forum</servlet-class>
-    </servlet>
+    <!--////////////////////////////////////////////////////////////////////////////-->
 
     <servlet-mapping>
-        <servlet-name>Forum</servlet-name>
-        <url-pattern>/forum</url-pattern>
+        <servlet-name>Create</servlet-name>
+        <url-pattern>/notes</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
-        <servlet-name>Reserve</servlet-name>
-        <url-pattern>/reserve</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>Book</servlet-name>
-        <url-pattern>/book</url-pattern>
+        <servlet-name>Delete</servlet-name>
+        <url-pattern>/delete</url-pattern>
     </servlet-mapping>
 
 
