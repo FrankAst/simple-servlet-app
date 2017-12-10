@@ -41,12 +41,14 @@ public class Welcome extends HttpServlet {
             notes.put(item2);
 
             request.setAttribute("notes", notes);
+            request.setAttribute("title", "Great guy");
             request.getRequestDispatcher("profile.jsp").forward(request, response);
         }
         else{
             try {
                 JSONArray allNotes = sq.selectAllNotes(Integer.parseInt(session.getAttribute("id").toString()));
                 request.setAttribute("notes", allNotes);
+                request.setAttribute("title", session.getAttribute("name"));
                 request.getRequestDispatcher("profile.jsp").forward(request, response);
             } catch (Exception e){
                 e.printStackTrace();

@@ -37,12 +37,13 @@ import java.util.Map;
             }
         }
 
-    public void insertUser(String email, String password, String query){
+    public void insertUser(String email, String password, String name){
+        String query = "insert into users (email, password, name) VALUES (?, ?, ?)";
         try {
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, email);
             stmt.setString(2, password);
-            stmt.setString(3, "user");
+            stmt.setString(3, name);
             stmt.executeUpdate();
             conn.commit();
         } catch (SQLException e) {
@@ -50,24 +51,25 @@ import java.util.Map;
         }
     }
 
-    public List<Map> selectAllUsers() {
+    public JSONArray selectAllUsers() {
         String query = "select * from users";
+        JSONArray allUsers = new JSONArray();
         PreparedStatement stmt = null;
-        List<Map> data = new ArrayList<Map>();
         try {
             stmt = conn.prepareStatement(query);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                Map<String, String> result = new HashMap<String, String>();
-                result.put("email", rs.getString("email"));
-                result.put("password", rs.getString("password"));
-                data.add(result);
+                JSONObject user = new JSONObject();
+                user.put("email", rs.getString("email"));
+                user.put("password", rs.getString("password"));
+                user.put("id", rs.getInt("id"));
+                allUsers.put(user);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return data;
+        return allUsers;
     }
 
 
@@ -81,6 +83,7 @@ import java.util.Map;
                 user.put("email", rs.getString("email"));
                 user.put("password", rs.getString("password"));
                 user.put("id", Integer.toString(rs.getInt("id")));
+                user.put("name", rs.getString("name"));
             }
 
         } catch (SQLException e) {

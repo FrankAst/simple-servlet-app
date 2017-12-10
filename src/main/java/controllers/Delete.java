@@ -26,9 +26,7 @@ public class Delete extends HttpServlet {
         }
 
         JSONObject reqData = new JSONObject(sb.toString());
-
         int id = Integer.parseInt(reqData.get("id").toString());
         sq.deleteNote(id);
     }
-
 }

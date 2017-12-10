@@ -40,10 +40,11 @@ public class Login extends HttpServlet {
 
                     HttpSession httpSession = req.getSession(true);
                     httpSession.setAttribute("email", user.get("email"));
-                    System.out.println(user.get("id"));
+                    httpSession.setAttribute("name", user.get("name"));
                     httpSession.setAttribute("id", user.get("id"));
                     httpSession.setMaxInactiveInterval(30);
-                    res.sendRedirect("profile.jsp");
+                    req.setAttribute("title", user.get("name"));
+                    req.getRequestDispatcher("profile.jsp").forward(req, res);
 
             } else {
                 res.getWriter().println("Invalid data");
@@ -56,6 +57,5 @@ public class Login extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("login.html").forward(request, response);
     }
 }

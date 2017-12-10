@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<title>Your notes, </title>
+<title>Your notes, ${title}  </title>
 
 <head>
     <meta charset="utf-8">
@@ -21,7 +21,7 @@
     <script src="/static/javascripts/angular.min.js"></script>
     <script src="/static/javascripts/angular-ui-bootstrap-modal.js"></script>
     <script src="/static/javascripts/angular-pagination.js"></script>
-    <script src="/static/https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="/static/javascripts/modules.js"></script>
 </head>
 
